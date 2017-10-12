@@ -9,6 +9,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const usersController = require('./routes/usersController')
 const app = express()
+mongoose.Promise = global.Promise
 
 
 

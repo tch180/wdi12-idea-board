@@ -1,13 +1,44 @@
 import React, { Component } from 'react';
+//import { Redirect } from 'react-router-dom'
+import axios from 'axios'
+import {Link} from 'react-router-dom'
+import SignUpForm from './SignUpForm'
 
-class Login extends Component {
-    render() {
-        return (
-            <div>
-                <h1>this is the logIn page</h1>
-            </div>
-        );
+class LogIn extends Component {
+    state = {
+      users: []
     }
-}
+  
+    componentWillMount(){
+        this.getAllUsers()
+    }
+    getAllUsers = async () => {
+    const res =await axios.get('/api/users')
+    this.setState({users: res.data})
+      }
+    
+    
+    render () {
+      return (
+        <div>
+          <h1>Log-In</h1>
+          <h3>Please Select an Existing User</h3>
+          {this.state.users.map(user => {
+            return (<Link key={user._id} to={`/idea/${user._id}`}>{user.userName}</Link>)
+          })}
+          <SignUpForm />
+          </div>
+          
+          
 
-export default Login;
+          
+          
+        
+           
+             
+      ) 
+    }
+  }
+  
+  export default LogIn
+
