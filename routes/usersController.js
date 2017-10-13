@@ -1,20 +1,33 @@
 const express = require('express')
 const router = express.Router()
-const {UserModel} = require('../db/Schema')
+const { User } = require('../db/schema')
 
-router.get('/', async (req, res)=>{
-    const users = await UserModel.find({})
+router.get('/', async (req, res) => {
+  try {
+    const users = await User.find({})
     res.json(users)
+  } catch (err) {
+    res.send(err)
+  }
 })
 
+router.get('/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id)
+    res.json(user)
+  } catch (err) {
+    res.send(err)
+  }
+})
 
-router.post('/', async (req, res)=>{
-    try{ console.log(req.body)
-    const newuser = new UserModel(req.body.user)
-    const saved = await newuser.save()
+router.post('/', async (req, res) => {
+  try {
+    const newUser = new User(req.body.user)
+    const saved = await newUser.save()
     res.json(saved)
-    } catch (err){
-        res.send(err)
-    }
+  } catch (err) {
+    res.send(err)
+  }
 })
-module.exports = router;
+
+module.exports = router

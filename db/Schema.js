@@ -18,6 +18,7 @@ const IdeaSchema = new Schema ({
     },
     created: {
         type: Date,
+        default: Date.now,
         required: true
     }
 
@@ -35,17 +36,16 @@ const UserSchema = new Schema ({
 
    },
 
-   Ideas: [IdeaSchema]
+   ideas: [IdeaSchema]
 });
 
 
 
 
-const UserModel = mongoose.model('User', UserSchema)
-const IdeaModel = mongoose.model('Idea', IdeaSchema)
+const User = mongoose.model('User', UserSchema)
+const Idea = mongoose.model('Idea', IdeaSchema)
 
 // Export each model so they can be required elsewhere
 module.exports = {
-    UserModel: UserModel,
-    IdeaModel: IdeaModel
+    Idea, User
 }
